@@ -1,5 +1,7 @@
 package calculator;
 
+import java.util.ArrayList;
+
 public class StringCalculator {
 
   public int Add(String numbers) {
@@ -34,14 +36,27 @@ public class StringCalculator {
   }
 
   private int getSum(String[] numbersArray) throws NumberFormatException {
-    int sum = 0;
+    int sum = 0, number;
+    boolean negativeIsFound = false;
+    ArrayList<Integer> negativeNumbers = new ArrayList<>();
 
     for (int i = 0; i < numbersArray.length; i++) {
       try {
-        sum += stringToInt(numbersArray[i]);
+        number = stringToInt(numbersArray[i]);
       } catch (NumberFormatException e) {
         throw new NumberFormatException("integer not found");
       }
+
+      if (number < 0) {
+        negativeIsFound = true;
+        negativeNumbers.add(number);
+      } else if (!negativeIsFound) {
+        sum += number;
+      }
+    }
+
+    if (negativeIsFound) {
+      throw new IllegalArgumentException("negatives not allowed: " + negativeNumbers.toString());
     }
 
     return sum;
