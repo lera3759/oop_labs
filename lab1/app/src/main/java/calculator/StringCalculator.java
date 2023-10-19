@@ -12,11 +12,7 @@ public class StringCalculator {
 
     String[] numbersArray = numbers.split(",");
 
-    if (numbersArray.length < 3) {
-      return getSum(numbersArray);
-    } else {
-      throw new IllegalArgumentException("invalid input");
-    }
+    return getSum(numbersArray);
   }
 
   private int stringToInt(String str) {
@@ -30,15 +26,16 @@ public class StringCalculator {
   }
 
   private int getSum(String[] numbersArray) throws NumberFormatException {
-    try {
-      if (numbersArray.length > 1) {
-        return stringToInt(numbersArray[0]) + stringToInt(numbersArray[1]);
+    int sum = 0;
+
+    for (int i = 0; i < numbersArray.length; i++) {
+      try {
+        sum += stringToInt(numbersArray[i]);
+      } catch (NumberFormatException e) {
+        throw new NumberFormatException("integer not found");
       }
-
-      return stringToInt(numbersArray[0]);
-
-    } catch (NumberFormatException e) {
-      throw new NumberFormatException("integer not found");
     }
+
+    return sum;
   }
 }

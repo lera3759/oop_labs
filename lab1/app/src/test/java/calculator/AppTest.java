@@ -21,4 +21,9 @@ public class AppTest {
         assertEquals(3, calculator.Add("1,2"));
     }
 
+    @Test
+    public void multipleNumbers() {
+        assertEquals(20, calculator.Add("1,2,3,4,10"));
+    }
+
 }
