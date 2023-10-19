@@ -3,14 +3,22 @@ package calculator;
 public class StringCalculator {
 
   public int Add(String numbers) {
+    String delimeter = ",|\\n";
+    String[] numbersArray;
 
     if (numbers.isEmpty()) {
       return 0;
     }
 
+    if (numbers.startsWith("//")) {
+      String customedDelimeter = Character.toString(numbers.charAt(2));
+      numbers = numbers.substring(4);
+      numbers = numbers.replace(customedDelimeter, ",");
+    }
+
     endsWithDelimiter(numbers);
 
-    String[] numbersArray = numbers.split(",|\n");
+    numbersArray = numbers.split(delimeter);
 
     return getSum(numbersArray);
   }
