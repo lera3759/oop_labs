@@ -4,6 +4,8 @@ import java.util.ArrayList;
 
 public class StringCalculator {
 
+  private static final int MAX_NUMBER = 1000;
+
   public int Add(String numbers) {
     String delimeter = ",|\\n";
     String[] numbersArray;
@@ -50,7 +52,7 @@ public class StringCalculator {
       if (number < 0) {
         negativeIsFound = true;
         negativeNumbers.add(number);
-      } else if (!negativeIsFound) {
+      } else if (!negativeIsFound && number <= MAX_NUMBER) {
         sum += number;
       }
     }

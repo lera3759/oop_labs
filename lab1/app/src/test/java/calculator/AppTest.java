@@ -34,4 +34,9 @@ public class AppTest {
         assertEquals(6, calculator.Add("//7\n17273"));
     }
 
+    @Test
+    public void ignoreLargeNumbers() {
+        assertEquals(1010, calculator.Add("10,1001\n1000"));
+        assertEquals(1999, calculator.Add("//;\n1000;999\n1001"));
+    }
 }
