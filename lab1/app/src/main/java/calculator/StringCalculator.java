@@ -1,6 +1,8 @@
 package calculator;
 
 import java.util.ArrayList;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 public class StringCalculator {
 
@@ -26,16 +28,45 @@ public class StringCalculator {
   }
 
   private String replaceCustomedDelimeter(String numbers) {
-    String customedDelimeter = numbers.substring(2, numbers.indexOf("\n"));
+
+    String customedDelimeter = numbers.substring(numbers.indexOf("//") + 2, numbers.indexOf("\n"));
     numbers = numbers.substring(numbers.indexOf("\n") + 1);
 
-    if (customedDelimeter.contains("[") & customedDelimeter.contains("]")) {
-      customedDelimeter = customedDelimeter.substring(1, customedDelimeter.length() - 1);
+    if (customedDelimeter.length() != 1) {
+      if (multipleDelimeters(customedDelimeter)) {
+        numbers = replaceDelimetersToComa(numbers, customedDelimeter);
+      } else {
+        numbers = numbers.replace(customedDelimeter.substring(1, customedDelimeter.length() - 1), ",");
+      }
+    } else {
+      numbers = numbers.replace(customedDelimeter, ",");
     }
 
-    numbers = numbers.replace(customedDelimeter, ",");
+    return numbers;
+  }
+
+  private String replaceDelimetersToComa(String numbers, String delimeter) {
+    Pattern pattern = Pattern.compile("\\[(.)\\]");
+    Matcher matcher = pattern.matcher(delimeter);
+
+    while (matcher.find()) {
+      for (int i = 0; i <= matcher.groupCount(); i++) {
+        String m = matcher.group(i);
+
+        if (!m.startsWith("[") && !m.endsWith("]")) {
+          numbers = numbers.replace(m, ",");
+        }
+      }
+    }
 
     return numbers;
+  }
+
+  private boolean multipleDelimeters(String delimeter) {
+    Pattern pattern = Pattern.compile("\\[(.)\\]");
+    Matcher matcher = pattern.matcher(delimeter);
+
+    return matcher.find();
   }
 
   private int stringToInt(String str) {

@@ -45,4 +45,11 @@ public class AppTest {
         assertEquals(6, calculator.Add("//[***]\n1***2***3"));
         assertEquals(6, calculator.Add("//[123]\n112321233"));
     }
+
+    @Test
+    public void multipleDelimeters() {
+        assertEquals(6, calculator.Add("//[*][;]\n1*2;3"));
+        assertEquals(15, calculator.Add("//[;][&]\n1&2\n3,4;5"));
+    }
+
 }
