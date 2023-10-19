@@ -10,7 +10,7 @@ public class StringCalculator {
 
     endsWithDelimiter(numbers);
 
-    String[] numbersArray = numbers.split(",");
+    String[] numbersArray = numbers.split(",|\n");
 
     return getSum(numbersArray);
   }
@@ -20,7 +20,7 @@ public class StringCalculator {
   }
 
   private void endsWithDelimiter(String numbers) throws IllegalArgumentException {
-    if (numbers.endsWith(",")) {
+    if (numbers.endsWith(",") || numbers.endsWith("\n")) {
       throw new IllegalArgumentException("invalid input");
     }
   }

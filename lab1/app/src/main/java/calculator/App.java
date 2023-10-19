@@ -11,6 +11,7 @@ public class App {
         while (true) {
             System.out.print("\nEnter a string: ");
             String str = scan.nextLine();
+            str = str.replace("\\n", "\n");
 
             if (str.equals("exit")) {
                 break;
