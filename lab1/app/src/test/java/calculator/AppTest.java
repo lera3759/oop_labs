@@ -30,7 +30,7 @@ public class AppTest {
     public void differentDelimeter() {
         assertEquals(3, calculator.Add("//;\n1;2"));
         assertEquals(3, calculator.Add("//*\n1*2"));
-        assertEquals(150, calculator.Add("//h\n10h20h30h40h50"));
+        assertEquals(150, calculator.Add("//h\n10,20\n30h40h50"));
         assertEquals(6, calculator.Add("//7\n17273"));
     }
 
@@ -38,5 +38,11 @@ public class AppTest {
     public void ignoreLargeNumbers() {
         assertEquals(1010, calculator.Add("10,1001\n1000"));
         assertEquals(1999, calculator.Add("//;\n1000;999\n1001"));
+    }
+
+    @Test
+    public void delimeterOfAnyLength() {
+        assertEquals(6, calculator.Add("//[***]\n1***2***3"));
+        assertEquals(6, calculator.Add("//[123]\n112321233"));
     }
 }

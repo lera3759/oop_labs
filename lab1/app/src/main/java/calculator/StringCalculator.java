@@ -15,9 +15,7 @@ public class StringCalculator {
     }
 
     if (numbers.startsWith("//")) {
-      String customedDelimeter = Character.toString(numbers.charAt(2));
-      numbers = numbers.substring(4);
-      numbers = numbers.replace(customedDelimeter, ",");
+      numbers = replaceCustomedDelimeter(numbers);
     }
 
     endsWithDelimiter(numbers);
@@ -25,6 +23,19 @@ public class StringCalculator {
     numbersArray = numbers.split(delimeter);
 
     return getSum(numbersArray);
+  }
+
+  private String replaceCustomedDelimeter(String numbers) {
+    String customedDelimeter = numbers.substring(2, numbers.indexOf("\n"));
+    numbers = numbers.substring(numbers.indexOf("\n") + 1);
+
+    if (customedDelimeter.contains("[") & customedDelimeter.contains("]")) {
+      customedDelimeter = customedDelimeter.substring(1, customedDelimeter.length() - 1);
+    }
+
+    numbers = numbers.replace(customedDelimeter, ",");
+
+    return numbers;
   }
 
   private int stringToInt(String str) {
