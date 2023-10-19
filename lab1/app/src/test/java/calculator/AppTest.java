@@ -52,4 +52,10 @@ public class AppTest {
         assertEquals(15, calculator.Add("//[;][&]\n1&2\n3,4;5"));
     }
 
+    @Test
+    public void multipleDelimetersOfAnyLength() {
+        assertEquals(6, calculator.Add("//[**][***]\n1**2***3"));
+        assertEquals(15, calculator.Add("//[;][&&&]\n1;2&&&3,4\n5"));
+    }
+
 }

@@ -46,24 +46,32 @@ public class StringCalculator {
   }
 
   private String replaceDelimetersToComa(String numbers, String delimeter) {
-    Pattern pattern = Pattern.compile("\\[(.)\\]");
+    Pattern pattern = Pattern.compile("\\[(.*?)\\]");
     Matcher matcher = pattern.matcher(delimeter);
+
+    ArrayList<String> delimeters = new ArrayList<>();
 
     while (matcher.find()) {
       for (int i = 0; i <= matcher.groupCount(); i++) {
         String m = matcher.group(i);
 
         if (!m.startsWith("[") && !m.endsWith("]")) {
-          numbers = numbers.replace(m, ",");
+          delimeters.add(m);
         }
       }
+    }
+
+    delimeters.sort((s2, s1) -> s1.length() - s2.length());
+
+    for (String del : delimeters) {
+      numbers = numbers.replace(del, ",");
     }
 
     return numbers;
   }
 
   private boolean multipleDelimeters(String delimeter) {
-    Pattern pattern = Pattern.compile("\\[(.)\\]");
+    Pattern pattern = Pattern.compile("\\[(.*?)\\]");
     Matcher matcher = pattern.matcher(delimeter);
 
     return matcher.find();
